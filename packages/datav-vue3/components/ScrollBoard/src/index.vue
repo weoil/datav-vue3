@@ -55,6 +55,10 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+  reStart: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const scrollBoard = ref(null)
@@ -180,7 +184,8 @@ const state = reactive({
 watch(() => props.config, (v) => {
   stopAnimation()
   // 此处打开后，config发生变化时，会从第一行开始重新轮播
-  // state.animationIndex = 0
+  if (props.reStart)
+    state.animationIndex = 0
 
   calcData()
 }, { deep: true })
